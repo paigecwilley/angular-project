@@ -1,9 +1,9 @@
-angular.module('devMtIn').controller('homeCtrl', function($scope){
+angular.module('devMtIn').controller('homeCtrl', function($scope, profileService){
 
-$scope.myProfile =
-	{
-	friends: [{name: 'Ryan'}, {name: 'Bryan'}, {name: 'Sarah'}, {name:'Zac'}, {name: 'Erin'}]
-	};
+$scope.myProfile = profileService.checkForProfile();
+	// {
+	// friends: [{name: 'Ryan'}, {name: 'Bryan'}, {name: 'Sarah'}, {name:'Zac'}, {name: 'Erin'}]
+	// };
 
 
 $scope.sortOptions = [{
@@ -16,8 +16,19 @@ $scope.sortOptions = [{
 	}
 ];
 
+profileService.serviceTest();
 
+$scope.editing = false;
 
+$scope.saveProfile = function(profile) {
+	profileService.saveProfile(profile);
+	$scope.editing = false;
+}
+
+$scope.deleteProfile = function(profile) {
+	profileService.deleteProfile('profile');
+	$scope.myProfile = profileService.checkForProfile();
+}
 
 });
 
