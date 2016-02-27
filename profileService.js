@@ -11,12 +11,12 @@ this.serviceTest = function() {
 this.saveProfile = function(profile) {
 	return $http({
 		method: 'POST',
-		url: baseUrl + 'api/profiles',/
+		url: baseUrl + 'api/profiles',
 		data: profile
 	})
 	.then(function(profileResponse){
-		localStorage.setItem('profileID', JSON.stringify({profileID: profileResponse.data_id}));
-		console.log(profileResponse);
+		console.log('profileResponse', profileResponse);
+		localStorage.setItem('profileId', JSON.stringify({profileId: profileResponse.data._id}));
 	})
 	.catch(function(err){
 		console.error(err);
@@ -26,7 +26,7 @@ this.saveProfile = function(profile) {
 this.checkForProfile = function(profileId){
 	return $http({
 		method: 'GET',
-		url: baseUrl + 'api/profiles' + profileId
+		url: baseUrl + 'api/profiles/' + profileId
 	});
 
 	// if (localStorage.getItem('profile')){
@@ -38,12 +38,11 @@ this.checkForProfile = function(profileId){
 }
 
 this.deleteProfile = function(profile) {
-	// localStorage.removeItem('profile');
 	var profileId = JSON.parse(localStorage.getItem('profileId')).profileId;
 
 	return $http({
 		method: 'DELETE',
-		url: baseUrl +'api/profiles' + profileId
+		url: baseUrl +'api/profiles/' + profileId
 	});
 }
 
